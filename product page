@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <title>
+            <header>
+                product page
+            </header>
+        </title>
+        <style>
+            table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+            body{background-color: aqua;}
+        </style>
+        <script>
+            var productpage =[];
+            function loadTable()
+            {
+                let table = document.querySelector('.list');
+                let trlist =table.querySelectorAll('tr');
+                for(let i=1;i<trlist.length;i++)
+                {
+                    let trE1=trlist[i];
+                    trE1.parentElement.removeChild(trE1);
+                }
+
+                
+          
+            for(let i=0;i<productpage.length;i++)
+            {
+                let x=productpage[i];
+                let cName = document.createElement('td');
+                let cPrice = document.createElement('td');
+                cName.innerText=x.name;
+                cPrice.innerText=x.price;
+
+                let rowEl = document.createElement('tr');
+                rowEl.appendChild(cName);
+                rowEl.appendChild(cPrice);
+                table.appendChild(rowEl); 
+
+            }
+        }
+            function addNew()
+            {
+                let nameE1=document.querySelector('.name');
+                let priceE1=document.querySelector('.price');
+
+                let x={
+                    name:nameE1.value,
+                    price:priceE1.value
+                };
+          
+            productpage.push(x);
+            loadTable();
+            let list = JSON.stringify(productpage);
+            localStorage.setItem("list", list);
+            }
+            function loadData()
+            {
+                let a=localStorage.getItem("list");
+                if(a)
+                {
+                    productpage=JSON.parse(a);
+                }
+            }
+        </script>
+    </head>
+    <body onload="loadData();loadTable()">
+    <div class="form">
+        <input type="text" placeholder="Enter NAME" class="name">
+        <input type="number" placeholder="EnterPRICE" class="price">
+        <button onclick="addNew()">Add</button>
+    </div>
+    <table class="list">
+        <tr class ="heading">
+            <th>NAME</th>
+            <th>PRICE</th>
+
+        </tr>
+  <tr class="row">
+<td>
+  
+</td>
+<td>
+    
+</td>
+  </tr>
+
+
+    </table>
+</html>
